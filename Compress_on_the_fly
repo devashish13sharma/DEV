@@ -1,0 +1,16 @@
+mknod ../Temp/ABC.csv p
+nohup gzip -c < ../Temp/ABC.csv > ../Files/ABC.gz &
+sqlplus -s Schema_User/Schema_Password@DB_Service <<EOF
+set termout off
+set heading off
+set underline "_"
+set pagesize 0 embedded on
+set linesize 32000
+set LONG 50000
+set colsep '"|"'
+set feedback off
+set trimspool on
+spool ./Temp/ABC.csv
+Select COLUMN1,COLUMN2 from ABC;
+spool off
+EOF
