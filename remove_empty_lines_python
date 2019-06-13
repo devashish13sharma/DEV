@@ -1,0 +1,6 @@
+with open("test.csv","r") as f, open("outfile.csv","w") as outfile:
+ for i in f.readlines():
+       if not i.strip():
+           continue
+       if i:
+           outfile.write(i)
