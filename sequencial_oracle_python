@@ -1,0 +1,15 @@
+import cx_Oracle
+import csv
+
+con = cx_Oracle.connect('SYSTEM/fedora@XE')
+cur = con.cursor()
+with open("outfile.txt", "r") as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for lines in csv_reader:
+        cur.execute(
+            "insert into test_one (one, two) values (:1, :2)",
+            (lines[0], lines[1]))
+
+cur.close()
+con.commit()
+con.close()
